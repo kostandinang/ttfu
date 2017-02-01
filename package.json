@@ -4,7 +4,10 @@
   "description": "TeamTheFuckOut",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js NODE_ENV=dev",
+    "serve": "nodemon --debug --config nodemon.json index.js",
+    "test": "lab -e dev",
+    "test-cov-html": "lab -e dev -r html -o test/coverage.html"
   },
   "repository": {
     "type": "git",
@@ -25,7 +28,9 @@
     "hapi": "^16.1.0",
     "hoek": "^4.1.0",
     "inert": "^4.1.0",
-    "joi": "^10.2.0"
+    "joi": "^10.2.0",
+    "pg-promise": "^5.5.6",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "lab": "^12.1.0",

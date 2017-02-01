@@ -1,11 +1,15 @@
 'use strict';
 
+const Log = require('./lib/log');
+
 const defaultRoute = (request, reply) => {
     reply.file('client/index.html');
 };
 
 const apiRoute = (request, reply) => {
-    return reply({apiStatus: 1}); //
+    Log.error("Test Error");
+    Log.info("Test info");
+    return reply({apiStatus: 1});
 };
 
 const routes = (server) => {

@@ -1,19 +1,17 @@
 'use strict';
 
 const Log = require('./lib/log');
+const Auth = require('./modules/auth');
 
 const defaultRoute = (request, reply) => {
     reply.file('client/index.html');
 };
 
 const apiRoute = (request, reply) => {
-    Log.error("Test Error");
-    Log.info("Test info");
     return reply({apiStatus: 1});
 };
 
 const routes = (server) => {
-
     // Dashboard Route
     server.route({
         method: 'GET',
@@ -26,6 +24,19 @@ const routes = (server) => {
         method: 'GET',
         path: '/api',
         handler: apiRoute
+    });
+
+    //Login
+    server.route({
+        method: '*',
+        path: '/fblogin',
+        config: {
+            auth: {
+                strategy: 'facebook',
+                mode: 'try'
+            },
+            handler: Auth.handleFBLogin
+        }
     });
 };
 

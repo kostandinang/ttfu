@@ -1,19 +1,19 @@
 'use strict';
 
 const Winston = require('winston');
-const Config = require('../config');
+const Cfg = require('../config');
 
 const logger = new Winston.Logger({
     transports: [
         new (Winston.transports.Console)(),
         new (Winston.transports.File)({
             name: "info-file",
-            filename: Config.logPath + "info.log",
+            filename: Cfg.logPath + "info.log",
             level: 'info'
         }),
         new (Winston.transports.File)({
             name: "error-file",
-            filename: Config.logPath + "error.log",
+            filename: Cfg.logPath + "error.log",
             level: 'error'
         })
     ]

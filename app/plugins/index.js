@@ -5,12 +5,14 @@ const Inert = require('inert');
 const Good = require('good');
 const Bell = require('bell');
 const Log = require('../lib/log');
+const Jwt = require('hapi-auth-jwt2');
 
 let plugins = (server) => {
     let $ = Promise.pending();
     const registrations = [
         Inert,
         Bell,
+        Jwt,
         {
             register: Good,
             options: {

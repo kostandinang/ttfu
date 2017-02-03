@@ -1,8 +1,9 @@
 'use strict';
 
-const Log = require('./../lib/log');
+const Log = require('../lib/log');
 const Cfg = require('../config/index');
 const User = require('./user');
+const Jwt = require('../lib/jwt');
 
 let registerAuthStrategies = (server) => {
     server.auth.strategy('facebook', 'bell', {
@@ -13,6 +14,12 @@ let registerAuthStrategies = (server) => {
         clientSecret: Cfg.FB_CLIENT_SECRET,
         location: server.info.uri
     });
+    server.auth.strategy('jwt', 'jwt', {
+        key: Cfg.APP_SECRET,
+        validateFunc: Jwt.verify,
+        verifyOptions: {algorithms: ['HS256']}
+    });
+    server.auth.default('jwt');
 };
 
 let login = (request, reply) => {

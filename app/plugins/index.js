@@ -1,14 +1,13 @@
 'use strict';
 
-const Q = require('q');
+const Promise = require('bluebird');
 const Inert = require('inert');
 const Good = require('good');
 const Bell = require('bell');
-const Auth = require('./../modules/auth/index');
 const Log = require('../lib/log');
 
-let registrations = (server) => {
-    let def = Q.defer();
+let plugins = (server) => {
+    let $ = Promise.pending();
     const registrations = [
         Inert,
         Bell,
@@ -34,12 +33,12 @@ let registrations = (server) => {
     server.register(registrations, (err) => {
         if (err) {
             Log.error(err.message, err);
-            def.reject();
+            $.reject();
         }
-        def.resolve();
+        $.resolve();
     });
 
-    return def.promise;
+    return $.promise;
 };
 
-module.exports = registrations;
+module.exports = plugins;

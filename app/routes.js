@@ -1,43 +1,22 @@
 'use strict';
 
-const Log = require('./lib/log');
-const Auth = require('./modules/auth');
+const Cfg = require('./config');
+const Mods = require('./modules');
 
-const defaultRoute = (request, reply) => {
-    reply.file('client/index.html');
+const Url = {
+    LOGIN: Cfg.API_URL + 'login',
+    FB_LOGIN: '/fblogin',
 };
 
-const apiRoute = (request, reply) => {
-    return reply({apiStatus: 1});
+let inject = (server, Auth) => {
+    server.route({method: 'GET', path: '/', handler: Mods.Path.default});
+    server.route({method: 'GET', path: '/status', handler: Mods.Path.status});
+    server.route({method: 'GET', path: '/404', handler: Mods.Path.error404});
+    server.route({method: 'GET', path: Url.FB_LOGIN, config: Auth.FBRouteCfg});
+    server.route({method: 'GET', path: Url.LOGIN, handler: Auth.login});
 };
 
-const routes = (server) => {
-    // Dashboard Route
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: defaultRoute
-    });
-
-    //API Route
-    server.route({
-        method: 'GET',
-        path: '/api',
-        handler: apiRoute
-    });
-
-    //Login
-    server.route({
-        method: '*',
-        path: '/fblogin',
-        config: {
-            auth: {
-                strategy: 'facebook',
-                mode: 'try'
-            },
-            handler: Auth.handleFBLogin
-        }
-    });
+module.exports = {
+    Url: Url,
+    inject: inject
 };
-
-module.exports = routes;

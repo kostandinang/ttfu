@@ -39,8 +39,4 @@ jspm_packages
 #Dev Logs
 logs/
 .idea/
-app/modules/
-client/dist/
-client/public/
-config/
-test/
+test/coverage.html

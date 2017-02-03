@@ -8,12 +8,12 @@ const logger = new Winston.Logger({
         new (Winston.transports.Console)(),
         new (Winston.transports.File)({
             name: "info-file",
-            filename: Cfg.logPath + "info.log",
+            filename: Cfg.LOG_PATH + "info.log",
             level: 'info'
         }),
         new (Winston.transports.File)({
             name: "error-file",
-            filename: Cfg.logPath + "error.log",
+            filename: Cfg.LOG_PATH + "error.log",
             level: 'error'
         })
     ]

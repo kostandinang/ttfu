@@ -12,7 +12,10 @@ const server = new Hapi.Server();
 let init = () => {
     server.connection({
         host: Cfg.HOST,
-        port: Cfg.PORT
+        port: Cfg.PORT,
+        routes: {
+            cors: true
+        }
     });
 
     /**

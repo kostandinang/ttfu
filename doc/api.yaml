@@ -1,31 +1,27 @@
 swagger: '2.0'
 
-#----------------- Meta-----------------#
-
+# Api Info
 info:
   version: "1.0.0"
   title: TTFU
   description: "TeamTheFuckOut"
-#host: ttfu.fabio.code
+host: localhost:3000
 basePath: /api/v1
 schemes:
   - http
-  - https
 consumes:
   - application/json
 produces:
   - application/json
 
-#----------------- Security -----------------#
-
+# Security
 securityDefinitions:
   Token:
     type: apiKey
     name: Authorization
     in: header
 
-#----------------- Paths -----------------#
-
+# Paths
 paths:
   /fblogin:
     post:
@@ -44,7 +40,7 @@ paths:
                 $ref: '#/definitions/FBLogin'
         401:
           description:  Facebook Authentication !OK
-          schema: 
+          schema:
             $ref: "#/definitions/Error"
 
   /user/device:
@@ -62,7 +58,7 @@ paths:
           description:  User Device registered
           schema:
             type: object
-            properties: 
+            properties:
               data:
                 $ref: '#/definitions/UserDevice'
     delete:
@@ -77,9 +73,9 @@ paths:
       responses:
         200:
           description:  User Device unregistered
-          schema: 
+          schema:
             $ref:   '#/definitions/UserDevice'
-            
+
   /match:
     get:
       description: Get matches
@@ -154,8 +150,8 @@ paths:
             properties:
               data:
                 $ref: "#/definitions/Match"
-                
-  /match/{match_id}/:  
+
+  /match/{match_id}/:
     get:
       description: Get a match
       security:
@@ -272,7 +268,7 @@ paths:
               data:
                 $ref: "#/definitions/TeamMember"
     delete:
-      description: Remove a member from team 
+      description: Remove a member from team
       security:
         - Token: []
       parameters:
@@ -283,7 +279,7 @@ paths:
         - name: action
           in: query
           type: string
-          enum: 
+          enum:
             - cancel
             - remove_from_team
           required: true
@@ -295,10 +291,9 @@ paths:
             properties:
               data:
                 $ref: "#/definitions/TeamMember"
-      
-    
-#----------------- Definitions -----------------#
 
+
+# Definitions
 definitions:
   FBLogin:
     type: object

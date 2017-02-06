@@ -12,7 +12,7 @@ const JWT_REGEX = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/;
 
 lab.experiment('Auth', () => {
     lab.test('Generate Token Key', (done) => {
-        Jwt.generate({}).then((token) => {
+        Jwt.generate({user_id: 1}).then((token) => {
             Log.info("Token generated: ", token);
             expect(token).to.match(JWT_REGEX);
             done();

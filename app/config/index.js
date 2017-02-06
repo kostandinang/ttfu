@@ -1,12 +1,15 @@
 'use strict';
 
 const _ = require('lodash');
+const Routes = require('./routes');
+
+const API_URL = '/api/v1/';
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const MILLIS = Math.floor(Date.now() / 1000);
 
-const CommonConfig = {
+let CommonConfig = {
     APP_SECRET: process.env.APP_SECRET || 'f1e878c8-e9ad-11e6-bf0e-fe55135034f3',
-    API_URL: '/api/v1/',
+    Routes: Routes(API_URL)
 };
 
 const EnvConfig = {

@@ -27,7 +27,7 @@ let login = (request, reply) => {
 };
 
 let fbLogin = (request, reply) => {
-    User.add(request, reply, request.auth.credentials);
+    User.Actions.add(request, reply, request.auth.credentials);
 };
 
 const FBRouteCfg = {

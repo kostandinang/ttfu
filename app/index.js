@@ -6,6 +6,7 @@ const Cfg = require('./config');
 const Auth = require('./modules/auth');
 const RegisterPlugins = require('./plugins');
 const Routes = require('./routes');
+const Modules = require('./modules');
 
 const server = new Hapi.Server();
 
@@ -26,7 +27,7 @@ let init = () => {
      */
     RegisterPlugins(server).then(() => {
         Auth.registerAuthStrategies(server);
-        Routes.inject(server, Auth);
+        Routes(server);
         server.start((err) => {
             if (err) {
                 Log.error(err.message, err);

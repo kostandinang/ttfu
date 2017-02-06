@@ -14,7 +14,6 @@ const jwt = {
         let $ = Promise.pending();
         Jwt.sign(
             {
-                exp: Cfg.TOKEN_EXPIRATION_TIME,
                 data: data
             },
             Cfg.APP_SECRET,

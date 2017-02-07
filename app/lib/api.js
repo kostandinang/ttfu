@@ -11,12 +11,18 @@ module.exports = {
     redirect: (reply, url) => {
         reply.redirect(url);
     },
+    success: (reply) => {
+        reply({success: 1});
+    },
+    notModified: (reply) => {
+        reply(Boom.badRequest(Cfg.Errors.NOT_MODIFIED));
+    },
     badRequest: (reply, err) => {
         Log.error(err.message, err);
-        reply(Boom.badRequest(err.message, err))
+        reply(Boom.badRequest(err.message, err));
     },
     invalidParams: (request, reply, source, err) => {
         Log.error(err.message, err);
-        reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err))
+        reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err));
     },
 };

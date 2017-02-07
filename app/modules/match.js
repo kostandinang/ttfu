@@ -56,6 +56,20 @@ module.exports = {
                 Api.badRequest(reply, err);
             });
             return $.promise;
+        },
+        remove: (request, reply) => {
+            let $ = Promise.pending();
+            let params = getMatchByIdParams(request);
+            db.match.remove(params).then(res => {
+                if (res.rowCount) {
+                    Api.success(reply, res);
+                } else {
+                    Api.notModified(reply);
+                }
+            }).catch(err => {
+                Api.badRequest(reply, err);
+            });
+            return $.promise;
         }
     }
 };

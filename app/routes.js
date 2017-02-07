@@ -71,4 +71,11 @@ module.exports = server => {
         config: Mods.Match.Cfg,
         handler: Mods.Match.Actions.findById
     });
+
+    server.route({
+        method: 'DELETE',
+        path: Cfg.Routes.MATCH_BY_ID,
+        config: Mods.Match.Cfg,
+        handler: Mods.Match.Actions.remove
+    });
 };

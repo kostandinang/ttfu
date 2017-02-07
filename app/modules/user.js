@@ -5,6 +5,7 @@ const Joi = require('joi');
 const db = require('../db/');
 const Log = require('../lib/log');
 const Api = require('../lib/api');
+const Cfg = require('../config');
 const Models = require('../db/models');
 const UserModel = Models.User;
 const UserDeviceModel = Models.UserDevice;
@@ -19,12 +20,16 @@ const PayloadValidationScheme = {
 
 const getUserDataFromFB = fbData => {
     let obj = {};
+    obj[UserModel.USER_ID] = 'default';
     obj[UserModel.USERNAME] = fbData.profile.displayName;
-    obj[UserModel.FIRST_NAME] = fbData.profile.first;
-    obj[UserModel.LAST_NAME] = fbData.profile.last;
+    obj[UserModel.EMAIL] = fbData.profile.email;
+    obj[UserModel.FIRST_NAME] = fbData.profile.name.first;
+    obj[UserModel.LAST_NAME] = fbData.profile.name.last;
     obj[UserModel.PHOTO_URL] = '';
+    obj[UserModel.FB_ID] = fbData.profile.id;
     obj[UserModel.CREATED_AT] = new Date();
     obj[UserModel.UPDATED_AT] = new Date();
+    obj[UserModel.IS_ADMIN] = false;
     return obj;
 };
 

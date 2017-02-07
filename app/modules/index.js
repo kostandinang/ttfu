@@ -3,5 +3,6 @@
 module.exports = {
     Auth: require('./auth'),
     User: require('./user'),
-    Path: require('./path')
+    Path: require('./path'),
+    Match: require('./match')
 };

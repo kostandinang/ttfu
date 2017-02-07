@@ -1,11 +1,29 @@
 'use strict';
 
-const db = require('../');
+const Model = require('../models').User;
+const DBUtil = require('../util');
+
+const TABLE = 'public.user';
 
 const Sql = {
-    FIND: 'select * from public.user',
-    CREATE: 'insert into public.user(user_id, username, first_name, last_name, photo_url, fb_id, created_at, updated_at) values (default, ${userName}, ${firstName}, ${lastName}, ${photoUrl}, ${fbId}, ${createdAt}, ${updatedAt})',
-    ADD_DEVICE: 'insert into public.user_device(user_id, device_id, created_at, active) values (${user_id}, ${device_id}, ${created_at}, ${active});'
+    FIND:
+        `select * from ${TABLE}`,
+    CREATE:
+        `insert into ${TABLE} values 
+        (
+            default,   
+            $/${Model.USERNAME}/, 
+            $/${Model.FIRST_NAME}/, 
+            $/${Model.LAST_NAME}/, 
+            $/${Model.PHOTO_URL}/, 
+            $/${Model.FB_ID}/, 
+            $/${Model.CREATED_AT}/, 
+            $/${Model.UPDATED_AT}/, 
+            $/${Model.IS_ADMIN}/,
+            $/${Model.EMAIL}/
+        )`,
+    ADD_DEVICE:
+        `insert into ${TABLE} values ($1, $2, $3, $4);`
 };
 
 module.exports = db => {
@@ -14,10 +32,10 @@ module.exports = db => {
             return db.query(Sql.FIND);
         },
         add: opts => {
-            return db.none(Sql.CREATE, opts);
+            return db.query(Sql.CREATE, opts);
         },
         addDevice: opts => {
-            return db.none(Sql.ADD_DEVICE, opts);
+            return db.none(Sql.ADD_DEVICE, DBUtil.getObjValues(opts));
         }
     };
 };

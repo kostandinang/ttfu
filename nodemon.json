@@ -5,8 +5,6 @@
     "node_modules/**/node_modules"
   ],
   "verbose": true,
-  "env": {
-    "NODE_ENV": "dev"
-  },
+  "env": {},
   "ext": "js json"
 }

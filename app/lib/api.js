@@ -1,17 +1,22 @@
 'use strict';
 
+const Boom = require('boom');
 const Log = require('./log');
-const Errors = require('./errors');
+const Cfg = require('../config');
 
 module.exports = {
+    write: (reply, data) => {
+        reply(data);
+    },
     redirect: (reply, url) => {
         reply.redirect(url);
     },
-    error: (reply, err) => {
+    badRequest: (reply, err) => {
         Log.error(err.message, err);
-        return reply(Errors.Generic(err)).code(400);
+        reply(Boom.badRequest(err.message, err))
     },
-    paramValidationErr: (request, reply, source, err) => {
-        return reply(Errors.InvalidParams(err)).code(400);
-    }
+    invalidParams: (request, reply, source, err) => {
+        Log.error(err.message, err);
+        reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err))
+    },
 };

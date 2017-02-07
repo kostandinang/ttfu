@@ -22,6 +22,7 @@
   "dependencies": {
     "bell": "^8.5.0",
     "bluebird": "^3.4.7",
+    "boom": "^4.2.0",
     "code": "^4.0.0",
     "dotenv": "^4.0.0",
     "glue": "^4.1.0",

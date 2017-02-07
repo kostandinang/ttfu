@@ -17,7 +17,8 @@ let registerAuthStrategies = (server) => {
     server.auth.strategy('jwt', 'jwt', {
         key: Cfg.APP_SECRET,
         validateFunc: Jwt.verify,
-        verifyOptions: {algorithms: ['HS256']}
+        verifyOptions: {algorithms: ['HS256']},
+        tokenType: 'Bearer'
     });
     server.auth.default('jwt');
 };

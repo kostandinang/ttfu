@@ -15,7 +15,7 @@ const PayloadValidationScheme = {
         device_id: Joi.string().required(),
         user_id: Joi.number().required()
     },
-    failAction: Api.paramValidationErr
+    failAction: Api.invalidParams
 };
 
 const getUserDataFromFB = fbData => {
@@ -53,7 +53,7 @@ module.exports = {
             db.user.add(userData).then(res => {
                 Api.redirect(reply, Cfg.Routes.LOGIN)
             }).catch(err => {
-                Api.error(reply, err)
+                Api.badRequest(reply, err);
             });
             return $.promise;
         },
@@ -62,9 +62,9 @@ module.exports = {
             let $ = Promise.pending();
             let userDeviceData = getUserDeviceData(request);
             db.user.addDevice(userDeviceData).then(res => {
-                return reply(res);
+                Api.write(reply, res);
             }).catch(err => {
-                Api.error(reply, err)
+                Api.badRequest(reply, err);
             });
             return $.promise;
         }

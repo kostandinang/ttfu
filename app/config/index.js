@@ -3,6 +3,7 @@
 require('dotenv').config();
 const _ = require('lodash');
 const Routes = require('./routes');
+const Errors = require('./errors');
 
 const API_URL = '/api/v1/';
 const MILLIS = Math.floor(Date.now() / 1000);
@@ -18,7 +19,8 @@ const CONFIG_KEYS = [
 ];
 
 let CommonConfig = {
-    Routes: Routes(API_URL)
+    Routes: Routes(API_URL),
+    Errors: Errors
 };
 
 CONFIG_KEYS.forEach(key => {

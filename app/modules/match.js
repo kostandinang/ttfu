@@ -14,13 +14,15 @@ const PayloadValidationScheme = {
     query: {
         from: Joi.date().timestamp().raw(),
     },
-    failAction: Api.paramValidationErr
+    failAction: Api.invalidParams
 };
 
 const getMatchParams = req => {
     let obj = {};
     let fromTS = req.query[MatchModel._Params.FROM];
-    obj[MatchModel._Params.FROM] = DBUtil.formatDBTime(fromTS);
+    if (fromTS) {
+        obj[MatchModel._Params.FROM] = DBUtil.formatDBTime(fromTS);
+    }
     return obj;
 };
 
@@ -33,9 +35,9 @@ module.exports = {
             let $ = Promise.pending();
             let params = getMatchParams(request);
             db.match.find(params).then(res => {
-                return reply(res);
+                Api.write(reply, res);
             }).catch(err => {
-                Api.error(reply, err)
+                Api.badRequest(reply, err);
             });
             return $.promise;
         }

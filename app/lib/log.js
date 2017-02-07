@@ -12,6 +12,11 @@ const logger = new Winston.Logger({
             level: 'info'
         }),
         new (Winston.transports.File)({
+            name: "warn-file",
+            filename: Cfg.LOG_PATH + "warn.log",
+            level: 'warn'
+        }),
+        new (Winston.transports.File)({
             name: "error-file",
             filename: Cfg.LOG_PATH + "error.log",
             level: 'error'
@@ -22,6 +27,9 @@ const logger = new Winston.Logger({
 module.exports = {
     info: (message, metadata) => {
         logger.log('info', message, metadata);
+    },
+    warn: (message, metadata) => {
+        logger.log('warn', message, metadata);
     },
     error: (message, metadata) => {
         logger.log('error', message, metadata);

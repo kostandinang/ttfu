@@ -1,6 +1,6 @@
 'use strict';
 
-const Hapi = require('Hapi');
+const Hapi = require('hapi');
 const Log = require('./lib/log');
 const Cfg = require('./config');
 const Auth = require('./modules/auth');

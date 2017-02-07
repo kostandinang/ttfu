@@ -1,9 +1,10 @@
 'use strict';
 
 const Model = require('../models').User;
-const DBUtil = require('../util');
+const DBUtil = require('../../lib/util').DB;
 
 const TABLE = 'public.user';
+const USER_DEVICE_TABLE = 'public.user_device';
 
 const Sql = {
     FIND:
@@ -23,7 +24,7 @@ const Sql = {
             $/${Model.EMAIL}/
         )`,
     ADD_DEVICE:
-        `insert into ${TABLE} values ($1, $2, $3, $4);`
+        `insert into ${USER_DEVICE_TABLE} values ($1, $2, $3, $4);`
 };
 
 module.exports = db => {

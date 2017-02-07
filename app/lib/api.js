@@ -9,9 +9,7 @@ module.exports = {
     },
     error: (reply, err) => {
         Log.error(err.message, err);
-        return reply({
-            err: err.message
-        }).code(400);
+        return reply(Errors.Generic(err)).code(400);
     },
     paramValidationErr: (request, reply, source, err) => {
         return reply(Errors.InvalidParams(err)).code(400);

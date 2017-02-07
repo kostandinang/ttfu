@@ -7,7 +7,7 @@ const Log = require('../lib/log');
 const Api = require('../lib/api');
 const Models = require('../db/models');
 const Cfg = require('../config');
-const DBUtil = require('../db/util');
+const DBUtil = require('../lib/util').DB;
 const MatchModel = Models.Match;
 
 const PayloadValidationScheme = {

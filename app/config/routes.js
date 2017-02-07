@@ -8,6 +8,7 @@ module.exports = basePath => {
         TOKEN: basePath + 'token',
         LOGIN: basePath + 'login',
         USER_DEVICE: basePath + 'user/device',
-        MATCH: basePath + 'match'
+        MATCH: basePath + 'match',
+        MATCH_BY_ID: basePath + 'match/{id}'
     }
 };

@@ -30,6 +30,7 @@ module.exports = {
         TEAMS: 'teams',
         DELETED_AT: 'deleted_at',
         _Params: {
+            ID: 'id',
             FROM: 'from'
         }
     },

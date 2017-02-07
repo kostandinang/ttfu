@@ -16,11 +16,13 @@ module.exports = server => {
         config: NO_AUTH,
         handler: Mods.Path.default
     });
+
     server.route({
         method: 'GET',
         path: Cfg.Routes.TOKEN,
         handler: Mods.Path.token
     });
+
     server.route({
         method: 'GET',
         path: Cfg.Routes.NOT_FOUND,
@@ -36,6 +38,7 @@ module.exports = server => {
         path: Cfg.Routes.FB_LOGIN,
         config: Mods.Auth.FBRouteCfg
     });
+
     server.route({
         method: 'GET',
         path: Cfg.Routes.LOGIN,
@@ -62,4 +65,10 @@ module.exports = server => {
         handler: Mods.Match.Actions.find
     });
 
+    server.route({
+        method: 'GET',
+        path: Cfg.Routes.MATCH_BY_ID,
+        config: Mods.Match.Cfg,
+        handler: Mods.Match.Actions.findById
+    });
 };

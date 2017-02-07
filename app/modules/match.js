@@ -26,11 +26,27 @@ const getMatchParams = req => {
     return obj;
 };
 
+const getMatchByIdParams = req => {
+    let obj = {};
+    obj[MatchModel._Params.ID] = req.params[MatchModel._Params.ID] || 0;
+    return obj;
+};
+
 module.exports = {
     Cfg: {
         validate: PayloadValidationScheme
     },
     Actions: {
+        findById: (request, reply) => {
+            let $ = Promise.pending();
+            let params = getMatchByIdParams(request);
+            db.match.findById(params).then(res => {
+                Api.write(reply, res);
+            }).catch(err => {
+                Api.badRequest(reply, err);
+            });
+            return $.promise;
+        },
         find: (request, reply) => {
             let $ = Promise.pending();
             let params = getMatchParams(request);

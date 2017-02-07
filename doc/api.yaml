@@ -304,19 +304,16 @@ definitions:
   Error:
     type: object
     properties:
-      err:
-        type: object
-        properties: 
-          type:
-            type: string
-          code:
+          statusCode:
             type: integer
+          error:
+            type: string
           message:
             type: string
-  
+
   UserDevice:
     type: object
-    properties: 
+    properties:
       user_id:
         type: integer
       device_id:
@@ -326,7 +323,7 @@ definitions:
         format: date-time
       active:
         type: boolean
-        
+
   Team:
     type: object
     properties:
@@ -348,10 +345,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/PublicUser"
-        
+
   Match:
     type: object
-    properties: 
+    properties:
       description:
         type: string
       due_date:
@@ -374,7 +371,7 @@ definitions:
       deleted_at:
         type: string
         format: date-time
-          
+
   TeamMember:
     type: object
     properties:
@@ -386,15 +383,15 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/PublicUser"
-  
+
   PublicUser:
     type: object
     properties:
       user_id:
         type: integer
       user_name:
-        type: string  
+        type: string
       first_name:
         type: string
       last_name:
-        type: string  
+        type: string

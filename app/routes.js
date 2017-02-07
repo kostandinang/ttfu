@@ -58,6 +58,7 @@ module.exports = server => {
     server.route({
         method: 'GET',
         path: Cfg.Routes.MATCH,
+        config: Mods.Match.Cfg,
         handler: Mods.Match.Actions.find
     });
 

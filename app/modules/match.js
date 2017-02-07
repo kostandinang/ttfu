@@ -11,8 +11,8 @@ const DBUtil = require('../db/util');
 const MatchModel = Models.Match;
 
 const PayloadValidationScheme = {
-    payload: {
-        from: Joi.date().timestamp(),
+    query: {
+        from: Joi.date().timestamp().raw(),
     },
     failAction: Api.paramValidationErr
 };

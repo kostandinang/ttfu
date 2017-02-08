@@ -1,6 +1,6 @@
 'use strict';
 
-const Model = require('../models').User;
+const Model = require('./model').User;
 const DBUtil = require('../../lib/util').DB;
 
 const TABLE = 'public.user';

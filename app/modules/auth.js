@@ -2,7 +2,7 @@
 
 const Log = require('../lib/log');
 const Cfg = require('../config/index');
-const User = require('./user');
+const User = require('./user/service');
 const Jwt = require('../lib/jwt');
 
 let registerAuthStrategies = (server) => {

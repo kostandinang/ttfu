@@ -2,13 +2,14 @@
 
 const Promise = require('bluebird');
 const Joi = require('joi');
-const db = require('../db/');
-const Log = require('../lib/log');
-const Api = require('../lib/api');
-const Cfg = require('../config');
-const Models = require('../db/models');
+const DB = require('../../db');
+const Api = require('../../lib/api');
+const Cfg = require('../../config');
+const Models = require('./model');
 const UserModel = Models.User;
 const UserDeviceModel = Models.UserDevice;
+
+const Repo = require('./repo')(DB);
 
 const PayloadValidationScheme = {
     payload: {
@@ -43,30 +44,24 @@ const getUserDeviceData = req => {
 };
 
 module.exports = {
-    Cfg: {
-        validate: PayloadValidationScheme
+    add: (request, reply, data) => {
+        let userData = getUserDataFromFB(data);
+        let $ = Promise.pending();
+        Repo.add(userData).then(res => {
+            Api.redirect(reply, Cfg.Routes.LOGIN)
+        }).catch(err => {
+            Api.badRequest(reply, err);
+        });
+        return $.promise;
     },
-    Actions: {
-        add: (request, reply, data) => {
-            let userData = getUserDataFromFB(data);
-            let $ = Promise.pending();
-            db.user.add(userData).then(res => {
-                Api.redirect(reply, Cfg.Routes.LOGIN)
-            }).catch(err => {
-                Api.badRequest(reply, err);
-            });
-            return $.promise;
-        },
-
-        addDevice: (request, reply) => {
-            let $ = Promise.pending();
-            let userDeviceData = getUserDeviceData(request);
-            db.user.addDevice(userDeviceData).then(res => {
-                Api.write(reply, res);
-            }).catch(err => {
-                Api.badRequest(reply, err);
-            });
-            return $.promise;
-        }
+    addDevice: (request, reply) => {
+        let $ = Promise.pending();
+        let userDeviceData = getUserDeviceData(request);
+        Repo.addDevice(userDeviceData).then(res => {
+            Api.write(reply, res);
+        }).catch(err => {
+            Api.badRequest(reply, err);
+        });
+        return $.promise;
     }
 };

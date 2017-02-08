@@ -1,6 +1,6 @@
 'use strict';
 
-const Model = require('../models').Match;
+const Model = require('./model');
 const DBUtil = require('../../lib/util').DB;
 
 const TABLE = 'public.match';
@@ -14,7 +14,7 @@ const Sql = {
     FIND:
         `select * from ${TABLE} WHERE ${Model.DELETED_AT} IS NULL`,
     DELETE:
-        `update ${TABLE} set ${Model.DELETED_AT} = $/${Model.DELETED_AT}/`
+        `update ${TABLE} set ${Model.DELETED_AT} = $/${Model.DELETED_AT}/`,
 };
 
 module.exports = db => {
@@ -26,6 +26,9 @@ module.exports = db => {
         find: params => {
             let query = Sql.FIND + ((params[Model._Params.FROM]) ? Helpers.FIND_FILTER : '');
             return db.query(query, params);
+        },
+        add: params => {
+
         },
         remove: params => {
             let query = Sql.DELETE + ' WHERE ' + Helpers.ID_MATCH;

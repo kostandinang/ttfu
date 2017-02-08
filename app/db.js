@@ -1,8 +1,8 @@
 'use strict';
 
 const Promise = require('bluebird');
-const Cfg = require('../config');
-const Log = require('../lib/log');
+const Cfg = require('./config');
+const Log = require('./lib/log');
 
 const options = {
     promiseLib: Promise
@@ -11,4 +11,4 @@ const options = {
 let pgp = require('pg-promise')(options);
 let db = pgp(Cfg.DB_STRING);
 
-module.exports = require('./repo')(db);
+module.exports = db;

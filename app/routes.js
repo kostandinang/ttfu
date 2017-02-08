@@ -52,7 +52,7 @@ module.exports = server => {
         method: 'POST',
         path: Cfg.Routes.USER_DEVICE,
         config: Mods.User.Cfg,
-        handler: Mods.User.Actions.addDevice
+        handler: Mods.User.Service.addDevice
     });
 
     /**
@@ -62,20 +62,20 @@ module.exports = server => {
         method: 'GET',
         path: Cfg.Routes.MATCH,
         config: Mods.Match.Cfg,
-        handler: Mods.Match.Actions.find
+        handler: Mods.Match.Service.find
     });
 
     server.route({
         method: 'GET',
         path: Cfg.Routes.MATCH_BY_ID,
         config: Mods.Match.Cfg,
-        handler: Mods.Match.Actions.findById
+        handler: Mods.Match.Service.findById
     });
 
     server.route({
         method: 'DELETE',
         path: Cfg.Routes.MATCH_BY_ID,
         config: Mods.Match.Cfg,
-        handler: Mods.Match.Actions.remove
+        handler: Mods.Match.Service.remove
     });
 };

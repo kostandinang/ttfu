@@ -1,12 +1,9 @@
-'use strict';
-
 const Hapi = require('hapi');
 const Log = require('./lib/log');
 const Cfg = require('./config');
 const Auth = require('./modules/auth');
 const RegisterPlugins = require('./plugins');
 const Routes = require('./routes');
-const Modules = require('./modules');
 
 const server = new Hapi.Server();
 

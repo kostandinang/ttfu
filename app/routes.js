@@ -3,7 +3,9 @@
 const Cfg = require('./config');
 const Mods = require('./modules');
 
-const NO_AUTH = { auth: false };
+const NO_AUTH = {
+    auth: false
+};
 
 module.exports = server => {
 

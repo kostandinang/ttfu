@@ -59,13 +59,28 @@ const respondLogin = (request, reply, data) => {
     });
 };
 
-//TODO - Implement
-let fbAuth = (request, reply) => {
-    let data = request.auth.credentials;
-    Api.redirect(reply, "/api/v1/fblogin?fb_token=" + data.token);
+/**
+ * Authenticate via Oauth and receive application token
+ * @param request
+ * @param reply
+ */
+const fbAuth = (request, reply) => {
+    let fbData = request.auth.credentials;
+    if (fbData && fbData.token) {
+        let redirectionURL = Cfg.Routes.FB_LOGIN + '?' + Model._Params.FB_TOKEN + '=' + fbData.token;
+        Api.redirect(reply, redirectionURL);
+    } else {
+        Api.badRequest(reply, new Error(Cfg.Errors.FB_AUTH_FAILED))
+    }
+
 };
 
-let fbLogin = (request, reply) => {
+/**
+ * Login via fb token and receive application token
+ * @param request
+ * @param reply
+ */
+const fbLogin = (request, reply) => {
     let fbToken = request.query[Model._Params.FB_TOKEN];
     getUserFromFacebook(fbToken).then(fbData => {
         let usr = createUserObj(fbData);

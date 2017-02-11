@@ -43,12 +43,6 @@ const jwt = {
                 cb(null, true, body);
             }
         });
-    },
-
-    getAuth: token => {
-        return {
-            Authorization: 'Bearer ' + token
-        }
     }
 };
 

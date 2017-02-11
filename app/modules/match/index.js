@@ -6,7 +6,7 @@ const Api = require('../../lib/api');
 const Model = require('./model');
 
 const Config = {
-    validation: {
+    validate: {
         query: {
             [Model._Params.FROM]: Joi.date().timestamp().raw(),
         },

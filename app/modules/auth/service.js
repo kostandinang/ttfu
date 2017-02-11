@@ -42,7 +42,7 @@ const getToken = data => {
         [User.Model.User.USER_ID]: data[User.Model.User.USER_ID]
     };
     let token = Jwt.generate(tokenData).then(token => {
-        $.resolve(Jwt.getAuth(token));
+        $.resolve(token);
     }).catch(e => {
         $.reject(e);
     });
@@ -50,9 +50,9 @@ const getToken = data => {
 };
 
 const respondLogin = (request, reply, data) => {
-    getToken(data).then(res => {
+    getToken(data).then(token => {
         Api.write(reply, {
-            [Model._Params.TOKEN]: res.Authorization
+            [Model._Params.TOKEN]: token
         });
     }).catch(err => {
         Api.badRequest(reply, err);
@@ -62,6 +62,7 @@ const respondLogin = (request, reply, data) => {
 //TODO - Implement
 let fbAuth = (request, reply) => {
     let data = request.auth.credentials;
+    Api.redirect(reply, "/api/v1/fblogin?fb_token=" + data.token);
 };
 
 let fbLogin = (request, reply) => {
@@ -70,7 +71,7 @@ let fbLogin = (request, reply) => {
         let usr = createUserObj(fbData);
         Log.info('User Data from Facebook Graph API', fbData);
         User.Service.findByFacebookId(request, reply, usr).then(res => {
-            Log.info('User Data from Database', res);`cx`
+            Log.info('User Data from Database', res);`cx`;
             respondLogin(request, reply, res);
         }).catch(err => {
             User.Service.add(request, reply, usr).then(res => {

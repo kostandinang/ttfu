@@ -8,6 +8,7 @@ module.exports = {
         LAST_NAME: 'last_name',
         PHOTO_URL: 'photo_url',
         FB_ID: 'fb_id',
+        FB_TOKEN: 'fb_token',
         CREATED_AT: 'created_at',
         UPDATED_AT: 'updated_at',
         IS_ADMIN: 'is_admin',

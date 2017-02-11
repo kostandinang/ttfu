@@ -21,12 +21,6 @@ module.exports = server => {
 
     server.route({
         method: 'GET',
-        path: Cfg.Routes.TOKEN,
-        handler: Mods.Path.token
-    });
-
-    server.route({
-        method: 'GET',
         path: Cfg.Routes.NOT_FOUND,
         config: NO_AUTH,
         handler: Mods.Path.error404
@@ -37,14 +31,15 @@ module.exports = server => {
      */
     server.route({
         method: 'GET',
-        path: Cfg.Routes.FB_LOGIN,
-        config: Mods.Auth.FBRouteCfg
+        path: Cfg.Routes.FB_AUTH,
+        config: Mods.Auth.Config.FBAuth
     });
 
     server.route({
         method: 'GET',
-        path: Cfg.Routes.LOGIN,
-        handler: Mods.Auth.login
+        path: Cfg.Routes.FB_LOGIN,
+        config: Mods.Auth.Config.FBLogin,
+        handler: Mods.Auth.Service.FB_LOGIN
     });
 
     /**
@@ -53,7 +48,7 @@ module.exports = server => {
     server.route({
         method: 'POST',
         path: Cfg.Routes.USER_DEVICE,
-        config: Mods.User.Cfg,
+        config: Mods.User.Config,
         handler: Mods.User.Service.addDevice
     });
 
@@ -63,21 +58,21 @@ module.exports = server => {
     server.route({
         method: 'GET',
         path: Cfg.Routes.MATCH,
-        config: Mods.Match.Cfg,
+        config: Mods.Match.Config,
         handler: Mods.Match.Service.find
     });
 
     server.route({
         method: 'GET',
         path: Cfg.Routes.MATCH_BY_ID,
-        config: Mods.Match.Cfg,
+        config: Mods.Match.Config,
         handler: Mods.Match.Service.findById
     });
 
     server.route({
         method: 'DELETE',
         path: Cfg.Routes.MATCH_BY_ID,
-        config: Mods.Match.Cfg,
+        config: Mods.Match.Config,
         handler: Mods.Match.Service.remove
     });
 };

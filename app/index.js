@@ -23,7 +23,7 @@ let init = () => {
      * Start Server
      */
     RegisterPlugins(server).then(() => {
-        Auth.registerAuthStrategies(server);
+        Auth.Plugin.registerAuth(server);
         Routes(server);
         server.start((err) => {
             if (err) {

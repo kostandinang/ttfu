@@ -6,23 +6,23 @@ const Cfg = require('../config');
 
 module.exports = {
     write: (reply, data) => {
-        reply(data);
+        return reply(data);
     },
     redirect: (reply, url) => {
-        reply.redirect(url);
+        return reply.redirect(url);
     },
     success: (reply) => {
-        reply({success: 1});
+        return reply({success: 1});
     },
     notModified: (reply) => {
-        reply(Boom.badRequest(Cfg.Errors.NOT_MODIFIED));
+        return reply(Boom.badRequest(Cfg.Errors.NOT_MODIFIED));
     },
     badRequest: (reply, err) => {
         Log.error(err.message, err);
-        reply(Boom.badRequest(err.message, err));
+        return reply(Boom.badRequest(err.message, err));
     },
     invalidParams: (request, reply, source, err) => {
         Log.error(err.message, err);
-        reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err));
+        return reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err));
     },
 };

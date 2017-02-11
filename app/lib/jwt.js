@@ -9,6 +9,7 @@ const jwt = {
     /**
      * Generate JWT Token
      * @param data
+     * data: {}
      */
     generate: (data) => {
         let $ = Promise.pending();
@@ -42,6 +43,12 @@ const jwt = {
                 cb(null, true, body);
             }
         });
+    },
+
+    getAuth: token => {
+        return {
+            Authorization: 'Bearer ' + token
+        }
     }
 };
 

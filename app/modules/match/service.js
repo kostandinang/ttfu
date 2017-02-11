@@ -19,9 +19,9 @@ const getMatchParams = req => {
 };
 
 const getMatchByIdParams = req => {
-    let obj = {};
-    obj[Model._Params.ID] = req.params[Model._Params.ID] || 0;
-    return obj;
+    return {
+        [Model._Params.ID]: req.params[Model._Params.ID] || 0
+    }
 };
 
 module.exports = {

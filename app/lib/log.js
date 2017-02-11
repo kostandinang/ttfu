@@ -33,5 +33,5 @@ module.exports = {
     },
     error: (message, metadata) => {
         logger.log('error', message, metadata);
-    }
+    },
 };

@@ -6,9 +6,8 @@ const
 	DB = require('../../db'),
 	Api = require('../../lib/api'),
 	Model = require('./model'),
-	DBUtil = require('../../lib/util').Db;
-
-const Repo = require('./repo')(DB);
+	DBUtil = require('../../lib/util').Db,
+	Repo = require('./repo')(DB);
 
 const getMatchParams = req => {
 	let obj = {};
@@ -30,7 +29,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 			let params = getMatchByIdParams(request);
 			Repo.findById(params).then(res => {
-				Api.write(reply, res);
+				Api.write(reply, res, {omitMetadata: true});
 			}).catch(err => {
 				Api.badRequest(reply, err);
 			});
@@ -40,7 +39,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 			let params = getMatchParams(request);
 			Repo.find(params).then(res => {
-				Api.write(reply, res);
+				Api.write(reply, res, Api.DEFAULTS);
 			}).catch(err => {
 				Api.badRequest(reply, err);
 			});

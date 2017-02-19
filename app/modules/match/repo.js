@@ -6,13 +6,17 @@ const
 
 const TABLE = 'public.match';
 
+const Projections = {
+	MATCH: `${Model.MATCH_ID}, ${Model.DUE_DATE}, ${Model.LOCATION}, ${Model.LAT}, ${Model.LNG}, ${Model.MAX_PLAYERS}, ${Model.MIN_PLAYERS}`
+};
+
 const Helpers = {
 	ID_MATCH: `${Model.MATCH_ID} = $/${Model._Params.ID}/`,
 	FIND_FILTER: ` AND ${Model.DUE_DATE} > $/${Model._Params.FROM}/`
 };
 
 const Sql = {
-	FIND: `select * from ${TABLE} WHERE ${Model.DELETED_AT} IS NULL`,
+	FIND: `select ${Projections.MATCH} from ${TABLE} WHERE ${Model.DELETED_AT} IS NULL`,
 	DELETE: `update ${TABLE} set ${Model.DELETED_AT} = $/${Model.DELETED_AT}/`,
 };
 

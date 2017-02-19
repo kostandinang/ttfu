@@ -38,7 +38,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 			let userData = getUserData(request);
 			Repo.find(userData).then(res => {
-				Api.write(reply, res, Api.DEFAULT_OPTIONS);
+				Api.write(reply, res, Api.DEFAULTS);
 			}).catch(err => {
 				Api.badRequest(reply, err);
 			});
@@ -57,7 +57,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 			let userDeviceData = getUserDeviceData(request);
 			Repo.addDevice(userDeviceData).then(res => {
-				Api.write(reply, res);
+				Api.write(reply, res, Api.DEFAULTS);
 			}).catch(err => {
 				Api.badRequest(reply, err);
 			});

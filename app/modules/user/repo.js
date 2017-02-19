@@ -7,9 +7,13 @@ const
 const TABLE = 'public.user';
 const USER_DEVICE_TABLE = 'public.user_device';
 
+const Projections = {
+	USER: `${Model.USER_ID}, ${Model.USERNAME}, ${Model.FIRST_NAME}, ${Model.LAST_NAME}, ${Model.EMAIL}, ${Model.FB_ID}, ${Model.PHOTO_URL}, ${Model.IS_ADMIN}`
+};
+
 const Sql = {
-	FIND: `select * from ${TABLE} WHERE ${Model.USER_ID}=$/${Model.USER_ID}/`,
-	FIND_FB_ID: `select * from ${TABLE} WHERE ${Model.FB_ID}=$/${Model.FB_ID}/`,
+	FIND: `select ${Projections.USER} from ${TABLE} WHERE ${Model.USER_ID}=$/${Model.USER_ID}/`,
+	FIND_FB_ID: `select ${Projections.USER} from ${TABLE} WHERE ${Model.FB_ID}=$/${Model.FB_ID}/`,
 	CREATE: `insert into ${TABLE} values 
         (
             default,   

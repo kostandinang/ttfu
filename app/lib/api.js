@@ -5,21 +5,9 @@ const Log = require('./log');
 const Cfg = require('../config');
 const Util = require('../lib/util');
 
-const transform = (res, opts) => {
-	if (opts) {
-		if (opts.omitMetadata) {
-			res = Util.Db.formatResponse(res);
-		}
-	}
-	return res;
-};
-
 module.exports = {
-	DEFAULT_OPTIONS: {
-		omitMetadata: true
-	},
+	DEFAULTS: {},
 	write: (reply, res, opts) => {
-		res = transform(res, opts);
 		return reply(res.data || res);
 	},
 	redirect: (reply, url) => {

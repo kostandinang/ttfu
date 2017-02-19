@@ -43,6 +43,25 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
+  /user/{user_id}/:
+    get:
+      description: Register user device
+      security:
+        - Token: []
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description:  User Device registered
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/User'
+                
   /user/device:
     post:
       description: Register user device
@@ -311,6 +330,25 @@ definitions:
           message:
             type: string
 
+  User:
+    type: object
+    properties:
+      user_id:
+        type: integer
+      username:
+        type: string
+      first_name:
+        type: string
+      email:
+        type: string
+      photo_url:
+        type: string
+      fb_id:
+        type: string  
+      is_admin:
+        type: boolean
+  
+  
   UserDevice:
     type: object
     properties:

@@ -7,6 +7,4 @@ const Api = require('../../lib/api');
 const Cfg = require('../../config/index');
 const Models = require('./model');
 
-module.exports = {
-
-};
+module.exports = {};

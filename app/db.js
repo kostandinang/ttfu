@@ -5,7 +5,7 @@ const Cfg = require('./config');
 const Log = require('./lib/log');
 
 const options = {
-    promiseLib: Promise
+	promiseLib: Promise
 };
 
 let pgp = require('pg-promise')(options);

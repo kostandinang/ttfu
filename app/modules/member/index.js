@@ -6,14 +6,14 @@ const Service = require('./service');
 const Model = require('./model');
 
 const Config = {
-    validate: {
-        payload: {},
-        failAction: Api.invalidParams
-    }
+	validate: {
+		payload: {},
+		failAction: Api.invalidParams
+	}
 };
 
 module.exports = {
-    Config: Config,
-    Service: Service,
-    Model: Model
+	Config: Config,
+	Service: Service,
+	Model: Model
 };

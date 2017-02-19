@@ -6,16 +6,16 @@ const Api = require('../../lib/api');
 const Model = require('./model');
 
 const Config = {
-    validate: {
-        query: {
-            [Model._Params.FROM]: Joi.date().timestamp().raw(),
-        },
-        failAction: Api.invalidParams
-    }
+	validate: {
+		query: {
+			[Model._Params.FROM]: Joi.date().timestamp().raw(),
+		},
+		failAction: Api.invalidParams
+	}
 };
 
 module.exports = {
-    Config: Config,
-    Service: Service,
-    Model: Model
+	Config: Config,
+	Service: Service,
+	Model: Model
 };

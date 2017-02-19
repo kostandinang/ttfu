@@ -1,7 +1,8 @@
 'use strict';
 
-const Model = require('./model').User;
-const DBUtil = require('../../lib/util').Db;
+const
+	Model = require('./model').User,
+	DBUtil = require('../../lib/util').Db;
 
 const TABLE = 'public.user';
 const USER_DEVICE_TABLE = 'public.user_device';

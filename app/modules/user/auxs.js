@@ -1,6 +1,7 @@
 'use strict';
 
-const Model = require('./model').User;
+const
+	Model = require('./model').User;
 
 module.exports = {
 	getUserObj: (params) => {

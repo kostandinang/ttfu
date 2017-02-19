@@ -1,28 +1,29 @@
 'use strict';
 
-const FBGraph = require('fbgraph');
-const Promise = require('bluebird');
-const Log = require('../../lib/log');
-const Cfg = require('../../config');
-const User = require('../user');
-const Jwt = require('../../lib/jwt');
-const Api = require('../../lib/api');
-const Model = require('./model');
+const 
+	FBGraph = require('fbgraph'),
+	Promise = require('bluebird'),
+	Log = require('../../lib/log'),
+	Cfg = require('../../config'),
+	User = require('../user'),
+	Jwt = require('../../lib/jwt'),
+	Api = require('../../lib/api'),
+	Model = require('./model');
 
 const getUserFromFacebook = (token) => {
-	let $ = Promise.pending();
-	let params = {
-		fields: 'id,email,name,first_name,last_name,picture.type(large)'
-	};
-	FBGraph.setAccessToken(token);
-	FBGraph.get('me', params, (err, res) => {
-		if (err) {
-			$.reject(err);
-		} else {
-			$.resolve(res);
-		}
+	return new Promise((resolve, reject) => {
+		let params = {
+			fields: 'id,email,name,first_name,last_name,picture.type(large)'
+		};
+		FBGraph.setAccessToken(token);
+		FBGraph.get('me', params, (err, res) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(res);
+			}
+		});
 	});
-	return $.promise;
 };
 
 const createUserObj = (fb) => {
@@ -37,16 +38,16 @@ const createUserObj = (fb) => {
 };
 
 const getToken = data => {
-	let $ = Promise.pending();
-	let tokenData = {
-		[User.Model.User.USER_ID]: data[User.Model.User.USER_ID]
-	};
-	let token = Jwt.generate(tokenData).then(token => {
-		$.resolve(token);
-	}).catch(e => {
-		$.reject(e);
+	return new Promise((resolve, reject) => {
+		let tokenData = {
+			[User.Model.User.USER_ID]: data[User.Model.User.USER_ID]
+		};
+		let token = Jwt.generate(tokenData).then(token => {
+			resolve(token);
+		}).catch(e => {
+			reject(e);
+		});
 	});
-	return $.promise;
 };
 
 const respondLogin = (request, reply, data) => {

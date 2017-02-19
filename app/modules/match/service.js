@@ -1,11 +1,12 @@
 'use strict';
 
-const Promise = require('bluebird');
-const Log = require('../../lib/log');
-const DB = require('../../db');
-const Api = require('../../lib/api');
-const Model = require('./model');
-const DBUtil = require('../../lib/util').Db;
+const
+	Promise = require('bluebird'),
+	Log = require('../../lib/log'),
+	DB = require('../../db'),
+	Api = require('../../lib/api'),
+	Model = require('./model'),
+	DBUtil = require('../../lib/util').Db;
 
 const Repo = require('./repo')(DB);
 
@@ -26,37 +27,37 @@ const getMatchByIdParams = req => {
 
 module.exports = {
 	findById: (request, reply) => {
-		let $ = Promise.pending();
-		let params = getMatchByIdParams(request);
-		Repo.findById(params).then(res => {
-			Api.write(reply, res);
-		}).catch(err => {
-			Api.badRequest(reply, err);
+		return new Promise((resolve, reject) => {
+			let params = getMatchByIdParams(request);
+			Repo.findById(params).then(res => {
+				Api.write(reply, res);
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
 		});
-		return $.promise;
 	},
 	find: (request, reply) => {
-		let $ = Promise.pending();
-		let params = getMatchParams(request);
-		Repo.find(params).then(res => {
-			Api.write(reply, res);
-		}).catch(err => {
-			Api.badRequest(reply, err);
+		return new Promise((resolve, reject) => {
+			let params = getMatchParams(request);
+			Repo.find(params).then(res => {
+				Api.write(reply, res);
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
 		});
-		return $.promise;
 	},
 	remove: (request, reply) => {
-		let $ = Promise.pending();
-		let params = getMatchByIdParams(request);
-		Repo.remove(params).then(res => {
-			if (res.rowCount) {
-				Api.success(reply, res);
-			} else {
-				Api.notModified(reply);
-			}
-		}).catch(err => {
-			Api.badRequest(reply, err);
+		return new Promise((resolve, reject) => {
+			let params = getMatchByIdParams(request);
+			Repo.remove(params).then(res => {
+				if (res.rowCount) {
+					Api.success(reply, res);
+				} else {
+					Api.notModified(reply);
+				}
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
 		});
-		return $.promise;
 	}
 };

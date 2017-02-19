@@ -2,7 +2,6 @@
 
 const Promise = require('bluebird');
 const Cfg = require('./config');
-const Log = require('./lib/log');
 
 const options = {
 	promiseLib: Promise

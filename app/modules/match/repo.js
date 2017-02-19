@@ -1,7 +1,8 @@
 'use strict';
 
-const Model = require('./model');
-const DBUtil = require('../../lib/util').Db;
+const
+	Model = require('./model'),
+	DBUtil = require('../../lib/util').Db;
 
 const TABLE = 'public.match';
 

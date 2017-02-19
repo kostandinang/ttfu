@@ -1,14 +1,13 @@
 'use strict';
 
-const Promise = require('bluebird');
-const DB = require('../../db');
-const Api = require('../../lib/api');
-const Cfg = require('../../config');
-const Repo = require('./repo')(DB);
-const Models = require('./model');
-const UserModel = Models.User;
-const UserDeviceModel = Models.UserDevice;
-const Util = require('../../lib/util');
+const
+	Promise = require('bluebird'),
+	DB = require('../../db'),
+	Api = require('../../lib/api'),
+	Repo = require('./repo')(DB),
+	Models = require('./model'),
+	UserModel = Models.User,
+	UserDeviceModel = Models.UserDevice;
 
 const getUserDeviceData = req => {
 	return {
@@ -27,41 +26,41 @@ const getUserData = req => {
 
 module.exports = {
 	findByFacebookId: (request, reply, data) => {
-		let $ = Promise.pending();
-		Repo.findByFacebookId(data).then(res => {
-			$.resolve(res);
-		}).catch(err => {
-			$.reject(err);
+		return new Promise((resolve, reject) => {
+			Repo.findByFacebookId(data).then(res => {
+				resolve(res);
+			}).catch(err => {
+				reject(err);
+			});
 		});
-		return $.promise;
 	},
 	find: (request, reply) => {
-		let $ = Promise.pending();
-		let userData = getUserData(request);
-		Repo.find(userData).then(res => {
-			Api.write(reply, res, Api.DEFAULT_OPTIONS);
-		}).catch(err => {
-			Api.badRequest(reply, err);
-		});
-		return $.promise;
+		return new Promise((resolve, reject) => {
+			let userData = getUserData(request);
+			Repo.find(userData).then(res => {
+				Api.write(reply, res, Api.DEFAULT_OPTIONS);
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
+		})
 	},
 	add: (request, reply, data) => {
-		let $ = Promise.pending();
-		Repo.add(data).then(res => {
-			$.resolve(res);
-		}).catch(err => {
-			$.reject(err);
+		return new Promise((resolve, reject) => {
+			Repo.add(data).then(res => {
+				resolve(res);
+			}).catch(err => {
+				reject(err);
+			});
 		});
-		return $.promise;
 	},
 	addDevice: (request, reply) => {
-		let $ = Promise.pending();
-		let userDeviceData = getUserDeviceData(request);
-		Repo.addDevice(userDeviceData).then(res => {
-			Api.write(reply, res);
-		}).catch(err => {
-			Api.badRequest(reply, err);
+		return new Promise((resolve, reject) => {
+			let userDeviceData = getUserDeviceData(request);
+			Repo.addDevice(userDeviceData).then(res => {
+				Api.write(reply, res);
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
 		});
-		return $.promise;
 	}
 };

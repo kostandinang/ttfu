@@ -15,7 +15,7 @@ module.exports = basePath => {
 		/**
 		 * User
 		 */
-		USER_BY_ID: basePath + 'user/{user_id}',
+		USER: basePath + 'user',
 		USER_DEVICE: basePath + 'user/device',
 		/**
 		 * Match

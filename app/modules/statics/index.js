@@ -1,3 +1,8 @@
 'use strict';
 
-module.exports = require('../../lib/util').Module.readModule(__dirname);
+const Util = require('../../lib/util');
+
+/**
+ * Expose module data
+ */
+module.exports = Util.Module.readModule(__dirname);

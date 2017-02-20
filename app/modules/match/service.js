@@ -24,7 +24,35 @@ const getMatchByIdParams = req => {
 	}
 };
 
+const getMatchPayload = req => {
+	const params = {};
+	[
+		Model.DESCRIPTION,
+		Model.LOCATION,
+		Model.LAT,
+		Model.LNG,
+		Model.MAX_PLAYERS,
+		Model.MIN_PLAYERS,
+		Model.Team.TEAM1_NAME,
+		Model.Team.TEAM2_NAME,
+		Model.Team.TEAM1_COLOR_HEX,
+		Model.Team.TEAM2_COLOR_HEX,
+	].map(key => {
+		params[key] = req.payload[key];
+	});
+	params[Model.DUE_DATE] = DBUtil.formatDBTime(req.payload[Model.DUE_DATE]);
+	params[Model.CREATED_AT] = DBUtil.formatDBTime(Date.now());
+	params[Model.UPDATED_AT] = DBUtil.formatDBTime(Date.now());
+	return params;
+};
+
 module.exports = {
+	
+	/**
+	 * Find match by id
+	 * @param request
+	 * @param reply
+	 */
 	findById: (request, reply) => {
 		return new Promise((resolve, reject) => {
 			let params = getMatchByIdParams(request);
@@ -35,6 +63,12 @@ module.exports = {
 			});
 		});
 	},
+	
+	/**
+	 * Find filtered matches
+	 * @param request
+	 * @param reply
+	 */
 	find: (request, reply) => {
 		return new Promise((resolve, reject) => {
 			let params = getMatchParams(request);
@@ -45,6 +79,32 @@ module.exports = {
 			});
 		});
 	},
+	
+	/**
+	 * Add a match
+	 * @param request
+	 * @param reply
+	 */
+	add: (request, reply) => {
+		return new Promise((resolve, reject) => {
+			let params = getMatchPayload(request);
+			Repo.add(params).then(res => {
+				if (res.rowCount) {
+					Api.success(reply, res);
+				} else {
+					Api.notModified(reply);
+				}
+			}).catch(err => {
+				Api.badRequest(reply, err);
+			});
+		});
+	},
+	
+	/**
+	 * Remove a match
+	 * @param request
+	 * @param reply
+	 */
 	remove: (request, reply) => {
 		return new Promise((resolve, reject) => {
 			let params = getMatchByIdParams(request);

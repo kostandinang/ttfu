@@ -1,14 +1,10 @@
 const Glue = require('glue');
 const Log = require('./lib/log');
 const Config = require('./config');
-const Auth = require('./modules/auth');
 const Plugins = require('./plugins');
 
 const MANIFEST = {
-	connections: [{
-			port: Config.PORT
-		}
-	],
+	connections: [{port: Config.PORT}],
 	registrations: Plugins,
 };
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const 
+const
 	FBGraph = require('fbgraph'),
 	Promise = require('bluebird'),
 	Log = require('../../lib/log'),
@@ -42,7 +42,7 @@ const getToken = data => {
 		let tokenData = {
 			[User.Model.User.USER_ID]: data[User.Model.User.USER_ID]
 		};
-		let token = Jwt.generate(tokenData).then(token => {
+		Jwt.generate(tokenData).then(token => {
 			resolve(token);
 		}).catch(e => {
 			reject(e);
@@ -72,9 +72,9 @@ const fbAuth = (request, reply) => {
 		let redirectionURL = Cfg.Routes.FB_LOGIN + '?' + Model._Params.FB_TOKEN + '=' + fbData.token;
 		Api.redirect(reply, redirectionURL);
 	} else {
-		Api.badRequest(reply, new Error(Cfg.Errors.FB_AUTH_FAILED))
+		Api.badRequest(reply, new Error(Cfg.Strings.Errors.FB_AUTH_FAILED))
 	}
-
+	
 };
 
 /**
@@ -92,6 +92,7 @@ const fbLogin = (request, reply) => {
 			`cx`;
 			respondLogin(request, reply, res);
 		}).catch(err => {
+			Log.error(err.message, err);
 			User.Service.add(request, reply, usr).then(res => {
 				respondLogin(request, reply, usr);
 			}).catch(err => {

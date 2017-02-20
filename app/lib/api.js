@@ -3,11 +3,9 @@
 const Boom = require('boom');
 const Log = require('./log');
 const Cfg = require('../config');
-const Util = require('../lib/util');
 
 module.exports = {
-	DEFAULTS: {},
-	write: (reply, res, opts) => {
+	write: (reply, res) => {
 		return reply(res.data || res);
 	},
 	redirect: (reply, url) => {
@@ -17,7 +15,7 @@ module.exports = {
 		return reply({success: 1});
 	},
 	notModified: (reply) => {
-		return reply(Boom.badRequest(Cfg.Errors.NOT_MODIFIED));
+		return reply(Boom.badRequest(Cfg.Strings.Errors.NOT_MODIFIED));
 	},
 	badRequest: (reply, err) => {
 		Log.error(err.message, err);
@@ -25,6 +23,6 @@ module.exports = {
 	},
 	invalidParams: (request, reply, source, err) => {
 		Log.error(err.message, err);
-		return reply(Boom.badRequest(Cfg.Errors.INVALID_PARAMS, err));
+		return reply(Boom.badRequest(Cfg.Strings.Errors.INVALID_PARAMS, err));
 	},
 };

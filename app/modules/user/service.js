@@ -7,7 +7,8 @@ const
 	Repo = require('./repo')(DB),
 	Models = require('./model'),
 	UserModel = Models.User,
-	UserDeviceModel = Models.UserDevice;
+	UserDeviceModel = Models.UserDevice,
+	Jwt = require('../../lib/jwt');
 
 const getUserDeviceData = req => {
 	return {
@@ -18,13 +19,14 @@ const getUserDeviceData = req => {
 	};
 };
 
-const getUserData = req => {
-	return {
-		[UserModel.USER_ID]: req.params[UserModel.USER_ID]
-	}
-};
-
 module.exports = {
+	
+	/**
+	 * Query user from facebook
+	 * @param request
+	 * @param reply
+	 * @param data
+	 */
 	findByFacebookId: (request, reply, data) => {
 		return new Promise((resolve, reject) => {
 			Repo.findByFacebookId(data).then(res => {
@@ -34,16 +36,32 @@ module.exports = {
 			});
 		});
 	},
+	
+	/**
+	 * Get user from user_id stored in token
+	 * @param request
+	 * @param reply
+	 */
 	find: (request, reply) => {
 		return new Promise((resolve, reject) => {
-			let userData = getUserData(request);
-			Repo.find(userData).then(res => {
+			let tokenPayload = Jwt.getTokenPayload(request);
+			const query = {
+				[Models.User.USER_ID]: tokenPayload[Models.User.USER_ID]
+			};
+			Repo.find(query).then(res => {
 				Api.write(reply, res, Api.DEFAULTS);
 			}).catch(err => {
 				Api.badRequest(reply, err);
 			});
 		})
 	},
+	
+	/**
+	 * Adds a user
+	 * @param request
+	 * @param reply
+	 * @param data
+	 */
 	add: (request, reply, data) => {
 		return new Promise((resolve, reject) => {
 			Repo.add(data).then(res => {
@@ -53,6 +71,12 @@ module.exports = {
 			});
 		});
 	},
+	
+	/**
+	 * Adds a user device
+	 * @param request
+	 * @param reply
+	 */
 	addDevice: (request, reply) => {
 		return new Promise((resolve, reject) => {
 			let userDeviceData = getUserDeviceData(request);

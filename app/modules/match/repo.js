@@ -1,10 +1,11 @@
 'use strict';
 
 const
-	Model = require('./model'),
-	DBUtil = require('../../lib/util').Db;
+	Model = require('./model');
 
 const TABLE = 'public.match';
+const TEAM_TABLE = 'public.team';
+const ADD_MATCH_FUNC = 'public.match_add';
 
 const Projections = {
 	MATCH: `${Model.MATCH_ID}, ${Model.DUE_DATE}, ${Model.LOCATION}, ${Model.LAT}, ${Model.LNG}, ${Model.MAX_PLAYERS}, ${Model.MIN_PLAYERS}`
@@ -20,6 +21,24 @@ const Sql = {
 	DELETE: `update ${TABLE} set ${Model.DELETED_AT} = $/${Model.DELETED_AT}/`,
 };
 
+const getCreateFields = params => {
+	return [
+		params[Model.DUE_DATE],
+		params[Model.DESCRIPTION],
+		params[Model.LOCATION],
+		params[Model.LAT],
+		params[Model.LNG],
+		params[Model.MAX_PLAYERS],
+		params[Model.MIN_PLAYERS],
+		params[Model.CREATED_AT],
+		params[Model.UPDATED_AT],
+		params[Model.Team.TEAM1_NAME],
+		params[Model.Team.TEAM2_NAME],
+		params[Model.Team.TEAM1_COLOR_HEX],
+		params[Model.Team.TEAM2_COLOR_HEX]
+	]
+};
+
 module.exports = db => {
 	return {
 		findById: params => {
@@ -31,7 +50,7 @@ module.exports = db => {
 			return db.query(query, params);
 		},
 		add: params => {
-
+			return db.func(ADD_MATCH_FUNC, getCreateFields(params));
 		},
 		remove: params => {
 			let query = Sql.DELETE + ' WHERE ' + Helpers.ID_MATCH;

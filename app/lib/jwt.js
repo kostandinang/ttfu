@@ -12,24 +12,24 @@ const jwt = {
 	 * data: {}
 	 */
 	generate: (data) => {
-		let $ = Promise.pending();
-		Jwt.sign(
-			{
-				data: data
-			},
-			Cfg.APP_SECRET,
-			{},
-			(err, token) => {
-				if (err) {
-					Log.error(err.message, err);
-					$.reject(err);
-				} else {
-					$.resolve(token);
-				}
-			});
-		return $.promise;
+		return new Promise((resolve, reject) => {
+			Jwt.sign(
+				{
+					data: data
+				},
+				Cfg.APP_SECRET,
+				{},
+				(err, token) => {
+					if (err) {
+						Log.error(err.message, err);
+						reject(err);
+					} else {
+						resolve(token);
+					}
+				});
+		});
 	},
-
+	
 	/**
 	 * Verify JWT Token
 	 * @param token
@@ -43,6 +43,14 @@ const jwt = {
 				cb(null, true, body);
 			}
 		});
+	},
+	
+	/**
+	 * Get token payload
+	 * @param request
+	 */
+	getTokenPayload: (request) => {
+		return request.auth.credentials.data;
 	}
 };
 

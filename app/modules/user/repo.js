@@ -22,8 +22,6 @@ const Sql = {
             $/${Model.LAST_NAME}/, 
             $/${Model.PHOTO_URL}/, 
             $/${Model.FB_ID}/, 
-            $/${Model.CREATED_AT}/, 
-            $/${Model.UPDATED_AT}/, 
             $/${Model.IS_ADMIN}/,
             $/${Model.EMAIL}/
         ) RETURNING ${Model.USER_ID}`,

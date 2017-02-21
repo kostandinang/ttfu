@@ -12,8 +12,6 @@ module.exports = {
 			[Model.LAST_NAME]: params.lastName,
 			[Model.PHOTO_URL]: params.photoUrl,
 			[Model.FB_ID]: params.fbId,
-			[Model.CREATED_AT]: new Date(),
-			[Model.UPDATED_AT]: new Date(),
 			[Model.IS_ADMIN]: false,
 		};
 	}

@@ -41,8 +41,6 @@ const getMatchPayload = req => {
 		params[key] = req.payload[key];
 	});
 	params[Model.DUE_DATE] = DBUtil.formatDBTime(req.payload[Model.DUE_DATE]);
-	params[Model.CREATED_AT] = DBUtil.formatDBTime(Date.now());
-	params[Model.UPDATED_AT] = DBUtil.formatDBTime(Date.now());
 	return params;
 };
 

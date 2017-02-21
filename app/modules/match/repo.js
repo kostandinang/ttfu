@@ -5,7 +5,7 @@ const
 
 const TABLE = 'public.match';
 const TEAM_TABLE = 'public.team';
-const ADD_MATCH_FUNC = 'public.match_add';
+const ADD_MATCH_FUNC = 'public.add_match';
 
 const Projections = {
 	MATCH: `${Model.MATCH_ID}, ${Model.DUE_DATE}, ${Model.LOCATION}, ${Model.LAT}, ${Model.LNG}, ${Model.MAX_PLAYERS}, ${Model.MIN_PLAYERS}`
@@ -30,8 +30,6 @@ const getCreateFields = params => {
 		params[Model.LNG],
 		params[Model.MAX_PLAYERS],
 		params[Model.MIN_PLAYERS],
-		params[Model.CREATED_AT],
-		params[Model.UPDATED_AT],
 		params[Model.Team.TEAM1_NAME],
 		params[Model.Team.TEAM2_NAME],
 		params[Model.Team.TEAM1_COLOR_HEX],
